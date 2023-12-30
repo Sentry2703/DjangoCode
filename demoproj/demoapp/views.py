@@ -32,6 +32,6 @@ def form_submit(request):
     if request.method == "POST":
         username = request.POST.get('name')
         age = request.POST.get('age')
-        return HttpResponse("Username: {}, Password: {}".format(username, age))
+        return HttpResponse("Username: {}, Age: {}".format(username, age))
     else:
         return HttpResponse("Invalid request method.")
