@@ -25,27 +25,36 @@ class Flight(models.Model):
         return f"Flight {self.flight_id} is a {self.flight_plane} from {self.flight_origin} to {self.flight_destination}."
     
 class Department(models.Model):
-    department_id = models.IntegerField(primary_key=True)
-    department_name = models.TextChoices('DepartmentName', 'Pilot FlightAttendant Mechanic GroundCrew Concessions Janitor Security Admin')
-    department_location = models.CharField(max_length=50)
+    class DepartmentName(models.TextChoices):
+        PILOT = 'Pilot', 'Pilot'
+        FLIGHT_ATTENDANT = 'FlightAttendant', 'Flight Attendant'
+        MECHANIC = 'Mechanic', 'Mechanic'
+        GROUND_CREW = 'GroundCrew', 'Ground Crew'
+        CONCESSIONS = 'Concessions', 'Concessions'
+        JANITOR = 'Janitor', 'Janitor'
+        SECURITY = 'Security', 'Security'
+        ADMIN = 'Admin', 'Admin'
+    dept_id = models.IntegerField(primary_key=True)
+    dept_name = models.TextField(choices=DepartmentName.choices, default='Admin')
+    dept_location = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"Department {self.department_id} is the {self.department_name} department."
+        return f"Department {self.dept_id} is the {self.dept_name} department."
     
 class Employee(models.Model):
-    employee_id = models.IntegerField(primary_key=True)
-    employee_fname = models.CharField(max_length=20)
-    employee_lname = models.CharField(max_length=20)
-    employment_date = models.DateField()
-    employee_role = models.ForeignKey(Department, on_delete=models.CASCADE)
-    salary = models.IntegerField()
+    emp_id = models.IntegerField(primary_key=True)
+    emp_fname = models.CharField(max_length=20)
+    emp_lname = models.CharField(max_length=20)
+    emp_date = models.DateField()
+    emp_role = models.ForeignKey(Department, on_delete=models.CASCADE)
+    emp_sal = models.IntegerField()
 
     def __str__(self):
-        return f"Employee {self.employee_id} is a {self.employee_role} and makes ${self.salary} a year."
+        return f"Employee {self.emp_id} is a {self.emp_role.dept_name} and makes ${self.emp_sal} a year."
     
 class Crew(models.Model):
     crew_id = models.IntegerField(primary_key=True)
-    employees = models.ManyToManyField(Employee) 
+    crew_staff = models.ManyToManyField(Employee) 
 
     def __str__(self):
-        return f"Crew {self.crew_id} is made up of {', '.join(str(employee.employee_fname, employee.employee_lname) for employee in self.employees.all())}."
+        return f"Crew {self.crew_id} is made up of {', '.join(str(employee.emp_fname + ' ' +  employee.emp_lname) for employee in self.crew_staff.all())}."
