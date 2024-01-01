@@ -35,7 +35,7 @@ class Department(models.Model):
         SECURITY = 'Security', 'Security'
         ADMIN = 'Admin', 'Admin'
     dept_id = models.IntegerField(primary_key=True)
-    dept_name = models.TextField(choices=DepartmentName.choices, default='Admin')
+    dept_name = models.TextField(choices=DepartmentName.choices, default='Admin', unique=True)
     dept_location = models.CharField(max_length=50)
 
     def __str__(self):
@@ -54,7 +54,7 @@ class Employee(models.Model):
     
 class Crew(models.Model):
     crew_id = models.IntegerField(primary_key=True)
-    crew_staff = models.ManyToManyField(Employee) 
+    crew_staff = models.ManyToManyField(Employee, limit_choices_to={'emp_role__dept_name': 'Pilot', 'emp_role__dept_name': 'FlightAttendant'}) 
 
     def __str__(self):
         return f"Crew {self.crew_id} is made up of {', '.join(str(employee.emp_fname + ' ' +  employee.emp_lname) for employee in self.crew_staff.all())}."
