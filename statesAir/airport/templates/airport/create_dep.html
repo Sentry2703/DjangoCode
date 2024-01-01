@@ -5,3 +5,11 @@
     </table>
     <input type = "submit" value = "Create Department">
 </form>
+
+<button onclick = "goBack()">Back</button>
+
+<script>
+    function goBack() {
+        location.href='{% url "airport:home"  %}'
+    }
+</script>
