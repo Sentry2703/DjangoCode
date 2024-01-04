@@ -1,3 +1,7 @@
+{% extends 'airport/base.html' %}
+
+{% block content %}
+
 <form action = "" method = POST>
     {% csrf_token %}
     <table>
@@ -13,3 +17,5 @@
         location.href='{% url "airport:home"  %}'
     }
 </script>
+
+{% endblock %}

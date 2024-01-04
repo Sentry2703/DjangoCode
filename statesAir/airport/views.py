@@ -1,14 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import DepartmentForm, CreateDepartmentForm
+from .models import Employee, Department, Plane, Flight, Crew
 
 def home(request):
-    return HttpResponse("This is the Airport Application")
-
-def form(request):
-    form = DepartmentForm()
-    context = {"form" : form}
-    return render(request, 'airport/form.html', context)
+    return render(request, 'airport/home.html')
 
 def create_dep(request):
     form = CreateDepartmentForm()
@@ -18,3 +14,8 @@ def create_dep(request):
             form.save()
     context = {"form" : form}
     return render(request, 'airport/create_dep.html', context)
+
+def list_things(request):
+    emp = Employee.objects.all()
+    content = {"emp" : emp}
+    return render(request, 'airport/list_things.html', content)
