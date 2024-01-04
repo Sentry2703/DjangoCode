@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>States Air</title>
+    <!-- Add your CSS stylesheets and JavaScript files here -->
+    <link rel="stylesheet" href= "{% static 'airport/style.css' %}">
+    
+</head>
+
+<body>
+    <!-- Add your header content here -->
+    {% include "airport/header.html" %}
+
+    <!-- Add your main content here -->
+    <main>
+        {% block content %}
+        
+        
+        
+        {% endblock %}
+    </main>
+
+    <!-- Add your footer content here -->
+    <footer>
+        &copy; 2024 States Air. All rights reserved.
+    </footer>
+</body>
+</html>

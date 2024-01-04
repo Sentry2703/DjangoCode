@@ -1,0 +1,15 @@
+
+{% extends "airport/base.html" %}
+
+
+{% block content %}
+
+<h2>This is a list of things.</h2>
+
+{%for e in emp %}
+
+    <p>{{e.emp_fname}} {{e.emp_lname}} - {{e.emp_role.dept_name}} - ${{e.emp_sal}}</p>
+
+{%endfor%}
+
+{% endblock %}
