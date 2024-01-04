@@ -2,15 +2,24 @@ from django.db import models
 
 # Create your models here.
 class Plane(models.Model):
+    class PlaneType(models.TextChoices):
+        CARGO = 'Cargo',
+        PASSENGER = 'Passenger',
+        PRIVATE = 'Private'
+    class PlaneStatus(models.TextChoices):
+        ACTIVE = 'Active',
+        INACTIVE = 'Inactive',
+        DECOMMISSIONED = 'Decommissioned',
+        REPAIR = 'Repair',
     plane_id = models.IntegerField(primary_key=True)
-    plane_type = models.TextChoices('PlaneType', 'Cargo Passenger Private')
+    plane_type = models.TextField(choices = PlaneType.choices, default='Passenger')
     capacity = models.IntegerField()
-    plane_status = models.CharField(max_length=50)
+    plane_status = models.TextField(choices = PlaneStatus.choices, default='Active')
     plane_airline = models.CharField(max_length=50)
     commission_date = models.DateField()
 
     def __str__(self):
-        return f"This {self.plane_type} is owned by {self.plane_airline} and has a capacity of {self.capacity}."
+        return f"{self.plane_id} - {self.plane_airline} - {self.capacity}."
     
 class Flight(models.Model):
     flight_id = models.IntegerField(primary_key=True)
@@ -19,7 +28,7 @@ class Flight(models.Model):
     flight_destination = models.CharField(max_length=50)
     flight_departure = models.DateTimeField()
     flight_arrival = models.DateTimeField()
-    flight_plane = models.ForeignKey(Plane, on_delete=models.CASCADE)
+    flight_plane = models.ForeignKey(Plane, on_delete=models.CASCADE, )
 
     def __str__(self):
         return f"Flight {self.flight_id} is a {self.flight_plane} from {self.flight_origin} to {self.flight_destination}."
@@ -39,7 +48,7 @@ class Department(models.Model):
     dept_location = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"Department {self.dept_id} is the {self.dept_name} department."
+        return f"{self.dept_name}"
     
 class Employee(models.Model):
     emp_id = models.IntegerField(primary_key=True)
@@ -50,7 +59,7 @@ class Employee(models.Model):
     emp_sal = models.IntegerField()
 
     def __str__(self):
-        return f"Employee {self.emp_id} is a {self.emp_role.dept_name} and makes ${self.emp_sal} a year."
+        return f"Employee {self.emp_id} - {self.emp_fname} {self.emp_lname}: {self.emp_role}."
     
 class Crew(models.Model):
     crew_id = models.IntegerField(primary_key=True)
