@@ -27,9 +27,9 @@ class Flight(models.Model):
 class Department(models.Model):
     class DepartmentName(models.TextChoices):
         PILOT = 'Pilot', 'Pilot'
-        FLIGHT_ATTENDANT = 'FlightAttendant', 'Flight Attendant'
+        FLIGHT_ATTENDANT = 'Flight Attendant', 'Flight Attendant'
         MECHANIC = 'Mechanic', 'Mechanic'
-        GROUND_CREW = 'GroundCrew', 'Ground Crew'
+        GROUND_CREW = 'Ground Crew', 'Ground Crew'
         CONCESSIONS = 'Concessions', 'Concessions'
         JANITOR = 'Janitor', 'Janitor'
         SECURITY = 'Security', 'Security'
