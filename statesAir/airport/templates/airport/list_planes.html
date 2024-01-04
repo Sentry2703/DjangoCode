@@ -10,9 +10,11 @@
     <tr>
 
         <th>Plane ID</th>
-        <th>Plane Model</th>
+        <th>Plane Type</th>
         <th>Plane Capacity</th>
         <th>Plane Status</th>
+        <th>Airline </th>
+        <th>Commission Date</th>
 
     </tr>
     
@@ -20,10 +22,13 @@
 
     <tr>
         <td>{{ plane.plane_id }}</td>
-        <td>{{ plane.plane_model }}</td>
-        <td>{{ plane.plane_capacity }}</td>
+        <td>{{ plane.plane_type}}</td>
+        <td>{{ plane.capacity }}</td>
         <td>{{ plane.plane_status }}</td>
+        <td>{{ plane.plane_airline }}</td>
+        <td>{{ plane.commission_date }}</td>
     </tr>
 
     {% endfor %}
+    
 {% endblock %}
