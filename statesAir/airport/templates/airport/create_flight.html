@@ -1,0 +1,16 @@
+{% extends "airport/base.html" %}
+
+{% block content %}
+
+    <h2> Create Plane </h2>
+
+    <form method = "POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        
+        <button type= "Submit">Create</button>
+    </form>
+
+{% endblock %}
