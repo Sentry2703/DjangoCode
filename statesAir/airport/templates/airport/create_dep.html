@@ -2,20 +2,13 @@
 
 {% block content %}
 
-<form action = "" method = POST>
+<form method = POST>
     {% csrf_token %}
     <table>
         {{form.as_table}}
     </table>
-    <input type = "submit" value = "Create Department">
+
+    <button type = "submit" value = "Create">Create</button>
 </form>
-
-<button onclick = "goBack()">Back</button>
-
-<script>
-    function goBack() {
-        location.href='{% url "airport:home"  %}'
-    }
-</script>
 
 {% endblock %}
