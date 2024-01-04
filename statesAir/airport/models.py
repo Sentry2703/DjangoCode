@@ -21,17 +21,6 @@ class Plane(models.Model):
     def __str__(self):
         return f"{self.plane_id} - {self.plane_airline} - {self.capacity}."
     
-class Flight(models.Model):
-    flight_id = models.IntegerField(primary_key=True)
-    flight_status = models.TextChoices('FlightStatus', 'OnTime Delayed Cancelled')
-    flight_origin = models.CharField(max_length=50)
-    flight_destination = models.CharField(max_length=50)
-    flight_departure = models.DateTimeField()
-    flight_arrival = models.DateTimeField()
-    flight_plane = models.ForeignKey(Plane, on_delete=models.CASCADE, )
-
-    def __str__(self):
-        return f"Flight {self.flight_id} is a {self.flight_plane} from {self.flight_origin} to {self.flight_destination}."
     
 class Department(models.Model):
     class DepartmentName(models.TextChoices):
@@ -66,4 +55,21 @@ class Crew(models.Model):
     crew_staff = models.ManyToManyField(Employee, limit_choices_to={'emp_role__dept_name': 'Pilot', 'emp_role__dept_name': 'FlightAttendant'}) 
 
     def __str__(self):
-        return f"Crew {self.crew_id} is made up of {', '.join(str(employee.emp_fname + ' ' +  employee.emp_lname) for employee in self.crew_staff.all())}."
+        return f"Crew {self.crew_id} - {self.crew_staff.count()} members."
+
+class Flight(models.Model):
+    class FlightStatus(models.TextChoices):
+        ONTIME = 'On Time', 'On Time'
+        DELAYED = 'Delayed', 'Delayed'
+        CANCELLED = 'Cancelled', 'Cancelled'
+    flight_id = models.IntegerField(primary_key=True)
+    flight_status = models.TextField(choices=FlightStatus.choices, default='On Time')
+    flight_origin = models.CharField(max_length=50)
+    flight_destination = models.CharField(max_length=50)
+    flight_departure = models.DateTimeField()
+    flight_arrival = models.DateTimeField()
+    flight_plane = models.ForeignKey(Plane, on_delete=models.CASCADE)
+    flight_crew = models.ForeignKey(Crew, on_delete=models.CASCADE, default = 1)
+
+    def __str__(self):
+        return f"Flight {self.flight_id} is a {self.flight_plane} from {self.flight_origin} to {self.flight_destination}."

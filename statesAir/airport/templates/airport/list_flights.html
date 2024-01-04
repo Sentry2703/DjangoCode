@@ -1,0 +1,32 @@
+{% extends "airport/base.html" %}
+
+
+{% block content %}
+
+<h2>This is a list of Flights.</h2>
+
+<table>
+    <tr>
+        <th>Flight ID</th>
+        <th>Status</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Plane</th>
+    </tr>
+
+    {% for flight in flights %}
+    <tr>
+        <td>{{ flight.flight_id }}</td>
+        <td>{{ flight.flight_status }}</td>
+        <td>{{ flight.flight_origin }}</td>
+        <td>{{ flight.flight_destination }}</td>
+        <td>{{ flight.flight_departure }}</td>
+        <td>{{ flight.flight_arrival }}</td>
+        <td>{{ flight.flight_plane }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

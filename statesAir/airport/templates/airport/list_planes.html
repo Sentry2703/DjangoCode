@@ -1,0 +1,29 @@
+{% extends "airport/base.html" %}
+
+
+{% block content %}
+
+<h2>This is a list of Planes.</h2>
+
+<table>
+
+    <tr>
+
+        <th>Plane ID</th>
+        <th>Plane Model</th>
+        <th>Plane Capacity</th>
+        <th>Plane Status</th>
+
+    </tr>
+    
+    {% for plane in planes %}
+
+    <tr>
+        <td>{{ plane.plane_id }}</td>
+        <td>{{ plane.plane_model }}</td>
+        <td>{{ plane.plane_capacity }}</td>
+        <td>{{ plane.plane_status }}</td>
+    </tr>
+
+    {% endfor %}
+{% endblock %}

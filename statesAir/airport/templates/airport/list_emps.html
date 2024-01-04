@@ -1,0 +1,32 @@
+{% extends "airport/base.html" %}
+
+
+{% block content %}
+
+<h2>This is a list of Employees.</h2>
+
+<table>
+    <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+        <th>Salary</th>
+        <th>Employment Date</th>
+    </tr>
+    
+    {%for e in emps %}
+
+    <tr>
+        <td>EMP {{e.emp_id}}</td>
+        <td>{{e.emp_fname}}</td>
+        <td>{{e.emp_lname}}</td>
+        <td>{{e.emp_role.dept_name}}</td>
+        <td>${{e.emp_sal}}</td>
+        <td>{{e.emp_date}}</td>
+    </tr>
+
+    {%endfor%}
+</table>
+
+{% endblock %}
