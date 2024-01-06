@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django import forms
 from .forms import *
 from .models import Employee, Department, Plane, Flight, Crew
 
@@ -104,3 +105,31 @@ def edit_plane(request):
             edit.save()
     
     return render(request, 'airport/edit_plane.html', {"select": select, "form" : edit})
+
+def edit_crew(request):
+    crew = None
+    select = EditCrewForm()
+    selectEmp = EditEmployeeForm()
+    selectEmp.fields['employee'].queryset = Employee.objects.filter(emp_role__dept_name='Pilot') | Employee.objects.filter(emp_role__dept_name='FlightAttendant')
+    selectEmp2 = EditEmployeeForm()
+
+    if request.method == "GET":
+        if 'crew' in request.GET:
+            crew = Crew.objects.get(pk = int(request.GET.get('crew')))
+            select = EditCrewForm(initial={'crew': crew})
+            selectEmp.fields['employee'].queryset = Employee.objects.filter(emp_role__dept_name='Pilot') | Employee.objects.filter(emp_role__dept_name='FlightAttendant')
+            selectEmp.fields['employee'].queryset = selectEmp.fields['employee'].queryset.exclude(emp_id__in=crew.crew_staff.all())
+            selectEmp2.fields['employee'].queryset = crew.crew_staff.all()
+        
+    elif request.method == "POST":
+        if 'type' in request.POST:
+            crew = Crew.objects.get(pk=request.GET.get('crew'))
+            if request.POST.get('type') == "add":
+                print("Added: "+ request.POST.get('employee'))
+                crew.crew_staff.add(Employee.objects.get(pk=request.POST.get('employee')))
+            else:
+                print("Removed: "+ request.POST.get('employee'))
+                crew.crew_staff.remove(Employee.objects.get(pk=request.POST.get('employee')))
+            crew.save()
+
+    return render(request, 'airport/edit_crew.html', {"select": select, "selectEmp": selectEmp, "selectEmp2": selectEmp2})

@@ -1,0 +1,39 @@
+{% extends 'airport/base.html' %}
+
+{% block content %}
+
+    <h2>Edit Crew</h2>
+
+    <h3>Select Crew</h3>
+
+    <form method="GET">
+        {% csrf_token %}
+        <table>
+            {{ select.as_table }}
+        </table>
+        <button type="submit">Select</button>
+        <button type="delete">Delete</button>
+    </form>
+
+
+    <h3>Add Employee to Crew</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ selectEmp.as_table }}
+        </table>
+        <input type="hidden" name="type" value="add" />
+        <button type="submit">Add</button>
+    </form>
+
+    <h3>Remove Employee from Crew</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ selectEmp2.as_table }}
+        </table>
+        <input type="hidden" name="type" value="remove" />
+    <button type="submit">Remove</button>
+
+
+{% endblock %}

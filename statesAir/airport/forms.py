@@ -28,7 +28,7 @@ class CreatePlaneForm(forms.ModelForm):
 
 class EditPlaneForm(forms.Form):
     plane = forms.ModelChoiceField(queryset=Plane.objects.all())
-    
+
 class CreateFlightForm(forms.ModelForm):
     class Meta:
         model = Flight
@@ -41,3 +41,11 @@ class CreateFlightForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateFlightForm, self).__init__(*args, **kwargs)
         self.fields['flight_plane'].queryset = Plane.objects.filter(plane_status='Active')
+        
+class CreateCrewForm(forms.ModelForm):
+    class Meta:
+        model = Crew
+        fields = "__all__"
+
+class EditCrewForm(forms.Form):
+    crew = forms.ModelChoiceField(queryset=Crew.objects.all())
