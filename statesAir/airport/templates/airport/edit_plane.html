@@ -1,0 +1,22 @@
+{% extends 'airport/base.html' %}
+
+{% block content %}
+
+    <h2>Edit Plane</h2>
+
+    <form method="GET">
+        {% csrf_token %}
+        <table>
+            {{ select.as_table }}
+        </table>
+        <button type="submit">Select</button>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+    <button type="submit">Save</button>
+
+{% endblock %}

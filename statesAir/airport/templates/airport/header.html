@@ -6,9 +6,12 @@
             <a href = "{% url 'airport:list_emps' %}">List Employees</a>
             <a href = "{% url 'airport:list_planes' %}">List Planes</a>
             <a href = "{% url 'airport:list_flights' %}">List Flights</a>
+            <a href = "{% url 'airport:list_crews' %}">List Crews</a>
             <a href= '{% url "airport:create_emp"  %}'>Create Employee</a>
             <a href= '{% url "airport:create_plane"  %}'>Create Plane</a>
             <a href= '{% url "airport:create_flight"  %}'>Create Flight</a>
+            <a href= '{% url "airport:edit_emp" %}'>Edit Employee</a>
+            <a href= '{% url "airport:edit_plane" %}'>Edit Plane</a>
         </ul>
     </nav>
 </header>

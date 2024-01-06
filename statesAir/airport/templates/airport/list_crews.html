@@ -1,0 +1,31 @@
+{% extends 'airport/base.html' %}
+
+{% block content %}
+
+    <h2> This is a list of Crews </h2>
+
+    {% for c in crews %}
+        <h3>Crew {{c.crew_id}}</h3>
+
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Employee Position</th>
+                <th>Employee Status</th>
+            </tr>
+
+            {% for e in c.crew_staff.all %}
+                <tr>
+                    <td>{{ e.emp_id }}</td>
+                    <td>{{ e.emp_fname }}</td>
+                    <td>{{ e.emp_lname }}</td>
+                    <td>{{ e.emp_role.dept_name }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    {% endfor %}
+
+{% endblock %}

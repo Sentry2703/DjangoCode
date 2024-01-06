@@ -15,6 +15,9 @@ class CreateEmployeeForm(forms.ModelForm):
             'emp_date': forms.DateInput(attrs={'type': 'date'})
         }
 
+class EditEmployeeForm(forms.Form):
+    employee = forms.ModelChoiceField(queryset=Employee.objects.all())
+
 class CreatePlaneForm(forms.ModelForm):
     class Meta:
         model = Plane
@@ -23,6 +26,9 @@ class CreatePlaneForm(forms.ModelForm):
             'commission_date': forms.DateInput(attrs={'type': 'date'})
         }
 
+class EditPlaneForm(forms.Form):
+    plane = forms.ModelChoiceField(queryset=Plane.objects.all())
+    
 class CreateFlightForm(forms.ModelForm):
     class Meta:
         model = Flight

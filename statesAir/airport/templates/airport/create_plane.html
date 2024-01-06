@@ -4,7 +4,7 @@
 
     <h2> Create Plane </h2>
 
-    <form method = "POST">
+    <form method = "POST" id = "actualEmp">
         {% csrf_token %}
         <table>
             {{form.as_table}}
